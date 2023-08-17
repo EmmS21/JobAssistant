@@ -16,7 +16,7 @@ import {
 } from "../../constants/errors";
 import dotenv from "dotenv";
 
-dotenv.config({ path: path.resolve(__dirname, "../../../.env") });
+// dotenv.config({ path: path.resolve(__dirname, "../../../.env") });
 
 const REDIS_URI = process.env.REDIS_URI;
 
