@@ -64,8 +64,6 @@ textarea {
   z-index: 0;
 }
 
-/* Add the following CSS adjustments to your existing styles */
-
 /* Tablet Styles */
 @media (max-width: 768px) {
   .submissionform {

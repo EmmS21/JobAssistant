@@ -2,13 +2,13 @@
 
 import React, { useState } from "react";
 import "../styling/submission.css";
-import Spinner from "../Components/Spinner";
-import ResultBox from "../Components/Result";
-import IntroductionComponent from "../Components/IntroductionComponent";
+import Spinner from "../components/Spinner";
+import ResultBox from "../components/Result";
+import IntroductionComponent from "../components/IntroductionComponent";
 import dynamic from "next/dynamic";
 
 const ParticlesComponent = dynamic(
-  () => import("../Components/ParticlesComponent"),
+  () => import("../components/ParticlesComponent"),
   {
     ssr: false,
     loading: () => <div>Loading...</div>,
@@ -70,13 +70,16 @@ export default function SubmissionForm() {
     e.preventDefault();
     setIsLoading(true);
     try {
-      const resp = await fetch("http://localhost:3000/submission/api", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
+      const resp = await fetch(
+        "https://job-assistant.vercel.app/submission/api",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formData),
+        }
+      );
       if (!resp.ok) {
         throw new Error("Network response was not ok");
       }
@@ -96,8 +99,6 @@ export default function SubmissionForm() {
 
   return (
     <>
-      <Spinner />
-
       {!showForm && <IntroductionComponent onStart={() => setShowForm(true)} />}
       <ParticlesComponent />
       {showForm && (
