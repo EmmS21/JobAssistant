@@ -76,11 +76,11 @@ export async function POST(request: Request) {
     // }
     const currentCount = 5
 
-    // const configs = new Configuration({
-    //   organization: process.env.ORGANIZATION,
-    //   apiKey: process.env.API_KEY,
-    // });
-    // const openai = new OpenAIApi(configs);
+    const configs = new Configuration({
+      organization: process.env.ORGANIZATION,
+      apiKey: process.env.API_KEY,
+    });
+    const openai = new OpenAIApi(configs);
     // const filePath = path.join(
     //   process.cwd(),
     //   "src",
@@ -119,7 +119,7 @@ export async function POST(request: Request) {
     //   model: "gpt-3.5-turbo",
     //   messages: [{ role: "system", content: fullPrompt }],
     // });
-    return NextResponse.json({'test': process.env.API_KEY})
+    return NextResponse.json({'test': openai.listModels()})
     // const resp = completion.data.choices[0].message;
     // return NextResponse.json({ ...resp, rateLimit: currentCount });
   } catch (err) {
