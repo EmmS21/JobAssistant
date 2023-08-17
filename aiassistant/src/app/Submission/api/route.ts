@@ -128,12 +128,11 @@ export async function POST(request: Request) {
   } catch (err) {
     return NextResponse.json(
       { error: ERROR_INTERNAL_SERVER },
-      { status: STATUS_INTERNAL_SERVER_ERROR },
-      {
+      { status: STATUS_INTERNAL_SERVER_ERROR,
         headers: {
           "Access-Control-Allow-Origin": "*"
         }
-      }
+      },
     );
   }
 }
