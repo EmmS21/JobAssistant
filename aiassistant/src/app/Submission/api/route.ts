@@ -119,7 +119,7 @@ export async function POST(request: Request) {
     //   model: "gpt-3.5-turbo",
     //   messages: [{ role: "system", content: fullPrompt }],
     // });
-    const newOne = openai.listModels
+    const done = openai.Completion.create(engine="davinci", prompt="Test")
     return NextResponse.json({'test': newOne })
     // const resp = completion.data.choices[0].message;
     // return NextResponse.json({ ...resp, rateLimit: currentCount });
