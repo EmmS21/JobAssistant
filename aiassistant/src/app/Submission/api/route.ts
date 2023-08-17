@@ -122,7 +122,9 @@ export async function POST(request: Request) {
     return NextResponse.json({ ...resp, rateLimit: currentCount },
                              {
                                headers: {
-                                 "Access-Control-Allow-Origin": "*"
+                                 "Access-Control-Allow-Origin": "*",
+                                 "Access-Control-Allow-Methods": "POST, GET, OPTIONS",
+                                 "Access-Control-Allow-Headers": "Content-Type"
                                }
                              });
   } catch (err) {
@@ -130,7 +132,9 @@ export async function POST(request: Request) {
       { error: ERROR_INTERNAL_SERVER },
       { status: STATUS_INTERNAL_SERVER_ERROR,
         headers: {
-          "Access-Control-Allow-Origin": "*"
+          "Access-Control-Allow-Origin": "*",
+          "Access-Control-Allow-Methods": "POST, GET, OPTIONS",
+          "Access-Control-Allow-Headers": "Content-Type"
         }
       },
     );
