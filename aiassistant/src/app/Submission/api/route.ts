@@ -76,49 +76,49 @@ export async function POST(request: Request) {
     // }
     const currentCount = 5
 
-    const configs = new Configuration({
-      organization: process.env.ORGANIZATION,
-      apiKey: process.env.API_KEY,
-    });
-    const openai = new OpenAIApi(configs);
-    const filePath = path.join(
-      process.cwd(),
-      "src",
-      "app",
-      "Submission",
-      "api",
-      "prompts.json"
-    );
-    const fileContents = fs.readFileSync(filePath, "utf8");
-    const prompts = JSON.parse(fileContents);
-    const fullPrompt =
-      prompts["text"][0] +
-      "\n" +
-      userData["resume"] +
-      "\n" +
-      prompts["text"][1] +
-      "\n" +
-      userData["portfolio"] +
-      "\n" +
-      prompts["text"][2] +
-      "\n" +
-      userData["vacancy"] +
-      "\n" +
-      prompts["text"][3] +
-      " " +
-      userData["laborMarket"] +
-      " " +
-      prompts["text"][4] +
-      " " +
-      prompts["text"][5] +
-      " " +
-      userData["country"] +
-      ". " +
-      prompts["text"][6];
-    const completion = await openai.createChatCompletion({
-      model: "gpt-3.5-turbo",
-      messages: [{ role: "system", content: fullPrompt }],
-    });
+    // const configs = new Configuration({
+    //   organization: process.env.ORGANIZATION,
+    //   apiKey: process.env.API_KEY,
+    // });
+    // const openai = new OpenAIApi(configs);
+    // const filePath = path.join(
+    //   process.cwd(),
+    //   "src",
+    //   "app",
+    //   "Submission",
+    //   "api",
+    //   "prompts.json"
+    // );
+    // const fileContents = fs.readFileSync(filePath, "utf8");
+    // const prompts = JSON.parse(fileContents);
+    // const fullPrompt =
+    //   prompts["text"][0] +
+    //   "\n" +
+    //   userData["resume"] +
+    //   "\n" +
+    //   prompts["text"][1] +
+    //   "\n" +
+    //   userData["portfolio"] +
+    //   "\n" +
+    //   prompts["text"][2] +
+    //   "\n" +
+    //   userData["vacancy"] +
+    //   "\n" +
+    //   prompts["text"][3] +
+    //   " " +
+    //   userData["laborMarket"] +
+    //   " " +
+    //   prompts["text"][4] +
+    //   " " +
+    //   prompts["text"][5] +
+    //   " " +
+    //   userData["country"] +
+    //   ". " +
+    //   prompts["text"][6];
+    // const completion = await openai.createChatCompletion({
+    //   model: "gpt-3.5-turbo",
+    //   messages: [{ role: "system", content: fullPrompt }],
+    // });
     return NextResponse.json({'test': 'res'})
     // const resp = completion.data.choices[0].message;
     // return NextResponse.json({ ...resp, rateLimit: currentCount });
