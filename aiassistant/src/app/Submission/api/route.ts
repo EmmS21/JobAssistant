@@ -119,8 +119,9 @@ export async function POST(request: Request) {
       model: "gpt-3.5-turbo",
       messages: [{ role: "system", content: fullPrompt }],
     });
-    const resp = completion.data.choices[0].message;
-    return NextResponse.json({ ...resp, rateLimit: currentCount });
+    return NextResponse.json({'test': 'res'})
+    // const resp = completion.data.choices[0].message;
+    // return NextResponse.json({ ...resp, rateLimit: currentCount });
   } catch (err) {
     return NextResponse.json(
       { error: ERROR_INTERNAL_SERVER },
