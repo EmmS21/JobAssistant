@@ -8,7 +8,7 @@ import IntroductionComponent from "../Components/IntroductionComponent";
 import dynamic from "next/dynamic";
 
 const ParticlesComponent = dynamic(
-  () => import("../components/ParticlesComponent"),
+  () => import("../Components/ParticlesComponent"),
   {
     ssr: false,
     loading: () => <div>Loading...</div>,
