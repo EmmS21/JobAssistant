@@ -2,7 +2,13 @@ import React, { useState } from "react";
 import "../styling/introduction.css";
 import { CHARACTERS } from "../constants/introduction";
 
-export default function IntroductionComponent({ onStart }) {
+type IntroductionComponentProps = {
+  onStart: () => void;
+};
+
+export default function IntroductionComponent({
+  onStart,
+}: IntroductionComponentProps) {
   return (
     <div className="matrix-container">
       <div className="matrix-text">{CHARACTERS}</div>

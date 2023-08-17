@@ -132,9 +132,6 @@ textarea {
   }
 }
 
-/* Add the following CSS adjustments to your existing styles */
-
-/* Mobile Phone Styles for 414x816 Device */
 @media (max-width: 480px) and (max-height: 816px) {
   .submissiondiv {
     top: 0;
