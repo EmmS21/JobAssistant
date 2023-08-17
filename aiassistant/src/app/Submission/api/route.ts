@@ -115,11 +115,11 @@ export async function POST(request: Request) {
       userData["country"] +
       ". " +
       prompts["text"][6];
-    // const completion = await openai.createChatCompletion({
-    //   model: "gpt-3.5-turbo",
-    //   messages: [{ role: "system", content: fullPrompt }],
-    // });
-    return NextResponse.json({'test': fullPrompt })
+    const completion = await openai.createChatCompletion({
+      model: "gpt-3.5-turbo",
+      messages: [{ role: "system", content: fullPrompt }],
+    });
+    return NextResponse.json({'test': completion })
     // const resp = completion.data.choices[0].message;
     // return NextResponse.json({ ...resp, rateLimit: currentCount });
   } catch (err) {
