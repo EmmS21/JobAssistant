@@ -71,7 +71,7 @@ export default function SubmissionForm() {
     setIsLoading(true);
     try {
       const resp = await fetch(
-        "https://job-assistant.vercel.app/submission/api",
+        "https://job-assistant.vercel.app/Submission/api",
         {
           method: "POST",
           headers: {
