@@ -18,8 +18,13 @@ import dotenv from "dotenv";
 
 dotenv.config({ path: path.resolve(__dirname, "../../../.env") });
 
-const redis = new Redis(process.env.REDIS_URI);
+const REDIS_URI = process.env.REDIS_URI;
 
+if (!REDIS_URI) {
+    throw new Error('REDIS_URI is not set in the environment variables.');
+}
+
+const redis = new Redis(REDIS_URI);
 export async function POST(request: Request) {
   try {
     const userData = await request.json();
