@@ -119,7 +119,7 @@ export async function POST(request: Request) {
     //   model: "gpt-3.5-turbo",
     //   messages: [{ role: "system", content: fullPrompt }],
     // });
-    return NextResponse.json({'test': 'res'})
+    return NextResponse.json({'test': process.env.API_KEY})
     // const resp = completion.data.choices[0].message;
     // return NextResponse.json({ ...resp, rateLimit: currentCount });
   } catch (err) {
