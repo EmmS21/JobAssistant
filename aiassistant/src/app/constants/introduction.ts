@@ -1,0 +1,3 @@
+const TEXT =
+  "Finding a Software Engineering job can be an onerous process, you spend a lot of time trying to decipher job descriptions to figure out whether you are a good fit. I am an assistant to help you find the likelihood of landing an interview at a given job given your experience. Simply copy and paste the job description and company, a summary of your skills, qualifications, problems you solved at work and a summary of projects you have built and I will give you a score out of 100, indicating the likelihood of you landing an interview at that company. I will also try to give you personalized tips on how to improve your resume and what concerns a hiring manager could have about you for this role. Ready to start?";
+export const CHARACTERS = TEXT.split("");
