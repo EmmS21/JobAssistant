@@ -18,7 +18,7 @@ import dotenv from "dotenv";
 
 dotenv.config({ path: path.resolve(__dirname, "../../../.env") });
 
-const redis = new Redis();
+const redis = new Redis(process.env.REDIS_URI);
 
 export async function POST(request: Request) {
   try {
