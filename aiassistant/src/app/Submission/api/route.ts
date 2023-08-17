@@ -119,11 +119,11 @@ export async function POST(request: Request) {
       messages: [{ role: "system", content: fullPrompt }],
     });
     const resp = completion.data.choices[0].message;
-    return NextResponse.json({ ...resp, rateLimit: currentCount });
+    return NextResponse.json({ ...resp, rateLimit: currentCount }).setHeader('Access-Control-Allow-Origin', *');
   } catch (err) {
     return NextResponse.json(
       { error: ERROR_INTERNAL_SERVER },
       { status: STATUS_INTERNAL_SERVER_ERROR }
-    );
+    ).setHeader('Access-Control-Allow-Origin', '*');
   }
 }
