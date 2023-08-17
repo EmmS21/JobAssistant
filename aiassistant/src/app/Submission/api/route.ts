@@ -18,13 +18,13 @@ import dotenv from "dotenv";
 
 // dotenv.config({ path: path.resolve(__dirname, "../../../.env") });
 
-const REDIS_URI = process.env.REDIS_URI;
+// const REDIS_URI = process.env.REDIS_URI;
 
-if (!REDIS_URI) {
-    throw new Error('REDIS_URI is not set in the environment variables.');
-}
+// if (!REDIS_URI) {
+//     throw new Error('REDIS_URI is not set in the environment variables.');
+// }
 
-const redis = new Redis(REDIS_URI);
+// const redis = new Redis(REDIS_URI);
 export async function POST(request: Request) {
   try {
     const userData = await request.json();
@@ -40,40 +40,41 @@ export async function POST(request: Request) {
         { status: STATUS_BAD_REQUEST }
       );
     }
-    const ip = request.headers?.get("x-forwarded-for")?.split(",")[0] || "";
-    const jobDescript = userData.vacancy;
-    const storedData = await redis.get(`rateLimit:${ip}`);
-    const storedTimestamp = storedData ? parseInt(storedData.split(":")[0]) : 0;
-    let currentCount = storedData ? parseInt(storedData.split(":")[1]) : 0;
-    const currentTimestamp = Math.floor(Date.now() / 1000);
-    if (currentTimestamp - storedTimestamp >= ONE_DAY_SECONDS) {
-      currentCount = 0;
-      await redis.set(`rateLimit:${ip}`, `${currentTimestamp}:${currentCount}`);
-    }
-    const submissionId = `${ip}:${jobDescript}`;
-    const lastSubmission = await redis.get("lastSubmission:${submissionId}");
-    if (lastSubmission) {
-      const lastSubmissionTimestamp = parseInt(lastSubmission);
-      if (currentTimestamp - lastSubmissionTimestamp < ONE_DAY_SECONDS) {
-        return NextResponse.json(
-          {
-            error: ERROR_DUPLICATE_SUBMISSION,
-          },
-          { status: STATUS_DUPLICATE_SUBMISSION }
-        );
-      }
-    }
+    // const ip = request.headers?.get("x-forwarded-for")?.split(",")[0] || "";
+    // const jobDescript = userData.vacancy;
+    // const storedData = await redis.get(`rateLimit:${ip}`);
+    // const storedTimestamp = storedData ? parseInt(storedData.split(":")[0]) : 0;
+    // let currentCount = storedData ? parseInt(storedData.split(":")[1]) : 0;
+    // const currentTimestamp = Math.floor(Date.now() / 1000);
+    // if (currentTimestamp - storedTimestamp >= ONE_DAY_SECONDS) {
+    //   currentCount = 0;
+    //   await redis.set(`rateLimit:${ip}`, `${currentTimestamp}:${currentCount}`);
+    // }
+    // const submissionId = `${ip}:${jobDescript}`;
+    // const lastSubmission = await redis.get("lastSubmission:${submissionId}");
+    // if (lastSubmission) {
+    //   const lastSubmissionTimestamp = parseInt(lastSubmission);
+    //   if (currentTimestamp - lastSubmissionTimestamp < ONE_DAY_SECONDS) {
+    //     return NextResponse.json(
+    //       {
+    //         error: ERROR_DUPLICATE_SUBMISSION,
+    //       },
+    //       { status: STATUS_DUPLICATE_SUBMISSION }
+    //     );
+    //   }
+    // }
 
-    currentCount++;
-    await redis.set(`rateLimit:${ip}`, `${currentTimestamp}:${currentCount}`);
-    await redis.set(`lastSubmission:${submissionId}`, `${currentTimestamp}`);
+    // currentCount++;
+    // await redis.set(`rateLimit:${ip}`, `${currentTimestamp}:${currentCount}`);
+    // await redis.set(`lastSubmission:${submissionId}`, `${currentTimestamp}`);
 
-    if (currentCount > 10) {
-      return NextResponse.json(
-        { error: ERROR_REQUEST_LIMIT_EXCEEDED },
-        { status: STATUS_REQUEST_LIMIT_EXCEEDED }
-      );
-    }
+    // if (currentCount > 10) {
+    //   return NextResponse.json(
+    //     { error: ERROR_REQUEST_LIMIT_EXCEEDED },
+    //     { status: STATUS_REQUEST_LIMIT_EXCEEDED }
+    //   );
+    // }
+    const currentCount = 5
 
     const configs = new Configuration({
       organization: process.env.ORGANIZATION,
