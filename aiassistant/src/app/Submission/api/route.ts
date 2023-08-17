@@ -119,24 +119,11 @@ export async function POST(request: Request) {
       messages: [{ role: "system", content: fullPrompt }],
     });
     const resp = completion.data.choices[0].message;
-    return NextResponse.json({ ...resp, rateLimit: currentCount },
-                             {
-                               headers: {
-                                 "Access-Control-Allow-Origin": "*",
-                                 "Access-Control-Allow-Methods": "POST, GET, OPTIONS",
-                                 "Access-Control-Allow-Headers": "Content-Type"
-                               }
-                             });
+    return NextResponse.json({ ...resp, rateLimit: currentCount });
   } catch (err) {
     return NextResponse.json(
       { error: ERROR_INTERNAL_SERVER },
-      { status: STATUS_INTERNAL_SERVER_ERROR,
-        headers: {
-          "Access-Control-Allow-Origin": "*",
-          "Access-Control-Allow-Methods": "POST, GET, OPTIONS",
-          "Access-Control-Allow-Headers": "Content-Type"
-        }
-      },
+      { status: STATUS_INTERNAL_SERVER_ERROR },
     );
   }
 }
