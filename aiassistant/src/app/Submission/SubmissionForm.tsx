@@ -2,13 +2,13 @@
 
 import React, { useState } from "react";
 import "../styling/submission.css";
-import Spinner from "../components/Spinner";
-import ResultBox from "../components/Result";
-import IntroductionComponent from "../components/IntroductionComponent";
+import Spinner from "../Components/Spinner";
+import ResultBox from "../Components/Result";
+import IntroductionComponent from "../Components/IntroductionComponent";
 import dynamic from "next/dynamic";
 
 const ParticlesComponent = dynamic(
-  () => import("../components/ParticlesComponent"),
+  () => import("../Components/ParticlesComponent"),
   {
     ssr: false,
     loading: () => <div>Loading...</div>,
