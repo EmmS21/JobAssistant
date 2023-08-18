@@ -25,6 +25,22 @@ import dotenv from "dotenv";
 // }
 
 // const redis = new Redis(REDIS_URI);
+class InvalidDataError extends Error {
+  statusCode: number;
+  constructor(message = ERROR_INVALID_DATA_FORMAT) {
+    super(message);
+    this.statusCode = STATUS_BAD_REQUEST;
+  }
+}
+
+class RateLimitExceededError extends Error {
+  statusCode: number;
+  constructor(message = ERROR_REQUEST_LIMIT_EXCEEDED) {
+    super(message);
+    this.statusCode = STATUS_REQUEST_LIMIT_EXCEEDED;
+  }
+}
+
 export async function POST(request: Request) {
   try {
     const userData = await request.json();
@@ -74,7 +90,7 @@ export async function POST(request: Request) {
     //     { status: STATUS_REQUEST_LIMIT_EXCEEDED }
     //   );
     // }
-    const currentCount = 5
+    const currentCount = 5;
 
     const configs = new Configuration({
       organization: process.env.ORGANIZATION,
@@ -119,13 +135,24 @@ export async function POST(request: Request) {
       model: "gpt-3.5-turbo",
       messages: [{ role: "system", content: fullPrompt }],
     });
-    return NextResponse.json({'test': completion })
-    // const resp = completion.data.choices[0].message;
-    // return NextResponse.json({ ...resp, rateLimit: currentCount });
+    const resp = completion.data.choices[0].message;
+    return NextResponse.json({ ...resp, rateLimit: currentCount });
   } catch (err) {
-    return NextResponse.json(
-      { error: ERROR_INTERNAL_SERVER },
-      { status: STATUS_INTERNAL_SERVER_ERROR },
-    );
+    if (err instanceof InvalidDataError) {
+      return NextResponse.json(
+        { error: ERROR_INVALID_DATA_FORMAT },
+        { status: STATUS_BAD_REQUEST }
+      );
+    } else if (err instanceof RateLimitExceededError) {
+      return NextResponse.json(
+        { error: ERROR_INVALID_DATA_FORMAT },
+        { status: STATUS_BAD_REQUEST }
+      );
+    } else {
+      return NextResponse.json(
+        { error: ERROR_INTERNAL_SERVER },
+        { status: STATUS_INTERNAL_SERVER_ERROR }
+      );
+    }
   }
 }
