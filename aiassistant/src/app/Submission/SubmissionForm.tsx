@@ -83,7 +83,6 @@ export default function SubmissionForm() {
       const respData = await resp.json();
       const finalResult = respData.content;
       const currCount = respData.rateLimit;
-      console.log(finalResult);
       setChatResp(finalResult);
       setCurrentCount(currCount);
       setHasResponse(true);
