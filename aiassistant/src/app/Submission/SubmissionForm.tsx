@@ -70,7 +70,7 @@ export default function SubmissionForm() {
     e.preventDefault();
     setIsLoading(true);
     try {
-      const resp = await fetch("http://localhost:3000/submission/api", {
+      const resp = await fetch("https://job-assistant.vercel.app/submission/api", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
