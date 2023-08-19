@@ -1,5 +1,5 @@
 {
   "scripts": {
-    "heroku-postbuild": "cd 'JobAssistant/aiassistant' && npm install && npm run build"
+    "heroku-postbuild": "cd 'aiassistant' && npm install && npm run build"
   }
 }
