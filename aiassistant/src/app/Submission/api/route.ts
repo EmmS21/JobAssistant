@@ -90,7 +90,6 @@ export async function POST(request: Request) {
         { status: STATUS_REQUEST_LIMIT_EXCEEDED }
       );
     }
-    const currentCount = 5;
 
     const configs = new Configuration({
       organization: process.env.ORGANIZATION,
