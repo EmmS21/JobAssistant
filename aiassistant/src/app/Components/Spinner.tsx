@@ -7,7 +7,7 @@ function Spinner() {
     <div>
       <PacmanLoader
         color={"grey"}
-        size={50}
+        size={window.innerWidth <= 480 ? 30 : 50}
         aria-label="Loading Spinner"
         data-testid="loader"
       />
