@@ -4,10 +4,10 @@ import PacmanLoader from "react-spinners/PacmanLoader";
 
 function Spinner() {
   return (
-    <div>
+    <div className="spinner-container">
       <PacmanLoader
         color={"grey"}
-        size={50}
+        size={window.innerWidth <= 480 ? 30 : 50}
         aria-label="Loading Spinner"
         data-testid="loader"
       />

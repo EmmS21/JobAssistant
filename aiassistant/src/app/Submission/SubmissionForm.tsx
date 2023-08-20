@@ -65,18 +65,20 @@ export default function SubmissionForm() {
     setIsLoading(false);
     setShowForm(true);
   };
-  // https://job-assistant.vercel.app
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
     try {
-      const resp = await fetch("https://job-assistant.vercel.app/Submission/api", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
+      const resp = await fetch(
+        "https://job-assistant.vercel.app/Submission/api",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formData),
+        }
+      );
       if (!resp.ok) {
         throw new Error("Network response was not ok");
       }

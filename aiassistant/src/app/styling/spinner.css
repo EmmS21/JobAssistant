@@ -32,20 +32,6 @@
   padding-top: 20px;
 }
 
-.loading-dots::after {
-  content: ".";
-  animation: bounce 1s infinite, colorChange 3s infinite;
-  display: inline-block;
-  font-size: 640px;
-  color: white;
-  margin-left: 5px;
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  left: calc(100% + 5px);
-  line-height: 0.8;
-}
-
 .loading-dots::before {
   content: "....";
   position: absolute;
@@ -55,4 +41,26 @@
   animation: colorChange 3s infinite;
   color: white;
   font-size: 40px;
+}
+
+.spinner-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+@media (max-width: 480px) {
+  .spinner-container {
+    position: relative;
+    top: 200px;
+    left: 150px;
+  }
+  .please-wait {
+    font-size: 6px;
+  }
+
+  .loading-dots::before {
+    font-size: 30.33px;
+  }
 }
