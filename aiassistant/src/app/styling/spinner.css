@@ -53,7 +53,7 @@
 @media (max-width: 480px) {
   .spinner-container {
     position: absolute;
-    top: 200px;
+    top: 250px;
     left: 120px;
   }
   .please-wait {
