@@ -19,7 +19,7 @@ const ResultBox: React.FC<ResultBoxProps> = ({
   return (
     <div className="response-container">
       <div className="request-count-box">
-        You have made {currCount} requests out of 20 today
+        You have made {currCount} requests out of 10 today
       </div>
       <div className="response-div">
         {match && (

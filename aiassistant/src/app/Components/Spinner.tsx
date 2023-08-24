@@ -2,7 +2,12 @@ import "../styling/spinner.css";
 import React, { useEffect, useState } from "react";
 import PacmanLoader from "react-spinners/PacmanLoader";
 
-function Spinner({ onPlayButtonClick }) {
+export interface SpinnerProps {
+  onPlayButtonClick: () => void;
+  isLoading: boolean;
+}
+
+function Spinner({ onPlayButtonClick }: SpinnerProps) {
   const [animation, setAnimation] = useState("colorChange");
   const [hovered, setHovered] = useState(false);
 

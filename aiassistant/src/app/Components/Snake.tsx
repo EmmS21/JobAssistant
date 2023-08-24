@@ -15,7 +15,7 @@ const SnakeGame = () => {
   const [speed, setSpeed] = useState(200);
   const [bomb, setBomb] = useState<{ x: number; y: number } | null>(null);
   const [animation, setAnimation] = useState("colorChange");
-  const [showModal, setShowModal] = useState(true); // Add this state
+  const [showModal, setShowModal] = useState(true);
 
   const generateNewDotPosition = () => {
     let newDotPosition = {
@@ -107,7 +107,7 @@ const SnakeGame = () => {
     if (head.x === dot.x && head.y === dot.y) {
       setDot(generateNewDotPosition());
       if (Math.random() < 0.8) setBomb(generateNewBombPosition());
-      setSnake([...snake, {}]);
+      setSnake([...snake, { x: 0, y: 0, letter: "" }]);
       setScore(score + 1);
       setSpeed((prevSpeed) => Math.max(prevSpeed - 50, 50));
     }
@@ -127,7 +127,7 @@ const SnakeGame = () => {
   };
 
   const resetGame = () => {
-    const gameArea = document.querySelector(".game-area"); // Using the class instead of the style for selection
+    const gameArea = document.querySelector(".game-area");
     if (gameArea) {
       const explosions = gameArea.querySelectorAll(".explosion");
       explosions.forEach((exp) => gameArea.removeChild(exp));
@@ -136,7 +136,7 @@ const SnakeGame = () => {
       clouds.forEach((cloud) => gameArea.removeChild(cloud));
     }
 
-    setSnake([{ x: 2, y: 2 }]);
+    setSnake([{ x: 2, y: 2, letter: "S" }]);
     setDot(generateNewDotPosition());
     setDirection("RIGHT");
     setScore(0);

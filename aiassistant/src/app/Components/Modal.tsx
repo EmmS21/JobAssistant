@@ -1,14 +1,19 @@
 import React, { useEffect } from "react";
 import "../styling/modal.css";
 
-const Modal = ({ show, onClose }) => {
+interface ModalProps {
+  show: boolean;
+  onClose: () => void;
+}
+
+const Modal: React.FC<ModalProps> = ({ show, onClose }) => {
   useEffect(() => {
     if (show) {
       setTimeout(() => {
         onClose();
       }, 2000);
     }
-  }, [show]);
+  }, [onClose, show]);
 
   if (!show) return null;
 
