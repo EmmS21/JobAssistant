@@ -6,6 +6,7 @@ import Spinner from "../Components/Spinner";
 import ResultBox from "../Components/Result";
 import IntroductionComponent from "../Components/IntroductionComponent";
 import dynamic from "next/dynamic";
+import SnakeGame from "../Components/Snake";
 
 const ParticlesComponent = dynamic(
   () => import("../Components/ParticlesComponent"),
@@ -23,6 +24,7 @@ export default function SubmissionForm() {
     laborMarket: "Highly Competitive Labor Market",
   });
   const [isLoading, setIsLoading] = useState(false);
+  const [isGamePlaying, setIsGamePlaying] = useState(false);
   const [chatResp, setChatResp] = useState("");
   const [hasResponse, setHasResponse] = useState(false);
   const [currentCount, setCurrentCount] = useState(0);
@@ -31,6 +33,10 @@ export default function SubmissionForm() {
   const isValidWordCount = (value: string, maxWords: number) => {
     const words = value.split(/\s+/).filter(Boolean);
     return words.length <= maxWords;
+  };
+
+  const handlePlayButtonClick = () => {
+    setIsGamePlaying(true);
   };
 
   const handleChange = (
@@ -63,6 +69,7 @@ export default function SubmissionForm() {
     setCurrentCount(0);
     setHasResponse(false);
     setIsLoading(false);
+    setIsGamePlaying(false);
     setShowForm(true);
   };
   const handleSubmit = async (e: React.FormEvent) => {
@@ -107,8 +114,13 @@ export default function SubmissionForm() {
               currCount={currentCount}
               moveBack={handleBackClick}
             />
-          ) : isLoading ? (
-            <Spinner />
+          ) : isLoading && isGamePlaying ? (
+            <SnakeGame />
+          ) : isLoading && !isGamePlaying ? (
+            <Spinner
+              isLoading={isLoading}
+              onPlayButtonClick={handlePlayButtonClick}
+            />
           ) : (
             <form className="submissionform" onSubmit={handleSubmit}>
               <label className="submissionlabel" htmlFor="Resume">

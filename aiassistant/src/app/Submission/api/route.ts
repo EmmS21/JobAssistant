@@ -21,7 +21,7 @@ dotenv.config({ path: path.resolve(__dirname, "../../../.env") });
 const REDIS_URI = process.env.REDIS_URI;
 
 if (!REDIS_URI) {
-    throw new Error('REDIS_URI is not set in the environment variables.');
+  throw new Error("REDIS_URI is not set in the environment variables.");
 }
 
 const redis = new Redis(REDIS_URI);
@@ -84,7 +84,7 @@ export async function POST(request: Request) {
     await redis.set(`rateLimit:${ip}`, `${currentTimestamp}:${currentCount}`);
     await redis.set(`lastSubmission:${submissionId}`, `${currentTimestamp}`);
 
-    if (currentCount > 10) {
+    if (currentCount > 50) {
       return NextResponse.json(
         { error: ERROR_REQUEST_LIMIT_EXCEEDED },
         { status: STATUS_REQUEST_LIMIT_EXCEEDED }
