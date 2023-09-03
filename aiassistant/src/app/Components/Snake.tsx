@@ -217,7 +217,9 @@ const SnakeGame = () => {
           <h1 style={{ animation: "flashing 1s infinite" }}>
             Final Score: {score}
           </h1>
-          <button onClick={resetGame}>Restart</button>
+          <button onClick={resetGame} data-testid="restartbttn">
+            Restart
+          </button>
         </div>
 
         <div className="please-wait">
