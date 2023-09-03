@@ -44,6 +44,7 @@ class RateLimitExceededError extends Error {
 export async function POST(request: Request) {
   try {
     const userData = await request.json();
+    console.log("Received request data:", userData);
     if (
       typeof userData.resume !== "string" ||
       typeof userData.portfolio !== "string" ||
@@ -57,8 +58,10 @@ export async function POST(request: Request) {
       );
     }
     const ip = request.headers?.get("x-forwarded-for")?.split(",")[0] || "";
+    console.log("IP Address:", ip);
     const jobDescript = userData.vacancy;
     const storedData = await redis.get(`rateLimit:${ip}`);
+    console.log("Stored rate limit data:", storedData);
     const storedTimestamp = storedData ? parseInt(storedData.split(":")[0]) : 0;
     let currentCount = storedData ? parseInt(storedData.split(":")[1]) : 0;
     const currentTimestamp = Math.floor(Date.now() / 1000);
@@ -67,18 +70,20 @@ export async function POST(request: Request) {
       await redis.set(`rateLimit:${ip}`, `${currentTimestamp}:${currentCount}`);
     }
     const submissionId = `${ip}:${jobDescript}`;
-    const lastSubmission = await redis.get("lastSubmission:${submissionId}");
-    if (lastSubmission) {
-      const lastSubmissionTimestamp = parseInt(lastSubmission);
-      if (currentTimestamp - lastSubmissionTimestamp < ONE_DAY_SECONDS) {
-        return NextResponse.json(
-          {
-            error: ERROR_DUPLICATE_SUBMISSION,
-          },
-          { status: STATUS_DUPLICATE_SUBMISSION }
-        );
-      }
-    }
+    console.log("Submission ID:", submissionId);
+
+    // const lastSubmission = await redis.get("lastSubmission:${submissionId}");
+    // if (lastSubmission) {
+    //   const lastSubmissionTimestamp = parseInt(lastSubmission);
+    //   if (currentTimestamp - lastSubmissionTimestamp < ONE_DAY_SECONDS) {
+    //     return NextResponse.json(
+    //       {
+    //         error: ERROR_DUPLICATE_SUBMISSION,
+    //       },
+    //       { status: STATUS_DUPLICATE_SUBMISSION }
+    //     );
+    //   }
+    // }
 
     currentCount++;
     await redis.set(`rateLimit:${ip}`, `${currentTimestamp}:${currentCount}`);
@@ -130,13 +135,19 @@ export async function POST(request: Request) {
       userData["country"] +
       ". " +
       prompts["text"][6];
+    console.log("Full Prompt:", fullPrompt);
+
     const completion = await openai.createChatCompletion({
       model: "gpt-3.5-turbo",
       messages: [{ role: "system", content: fullPrompt }],
     });
     const resp = completion.data.choices[0].message;
+    console.log("OpenAI Response:", resp);
+
     return NextResponse.json({ ...resp, rateLimit: currentCount });
   } catch (err) {
+    console.error("Error occurred:", err);
+
     if (err instanceof InvalidDataError) {
       return NextResponse.json(
         { error: ERROR_INVALID_DATA_FORMAT },
