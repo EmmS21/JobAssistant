@@ -37,6 +37,7 @@ function Spinner({ onPlayButtonClick }: SpinnerProps) {
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
         onClick={onPlayButtonClick}
+        data-testid="playbutton"
       >
         {hovered ? (
           "Play Game"
