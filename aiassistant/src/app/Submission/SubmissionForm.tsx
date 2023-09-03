@@ -114,6 +114,7 @@ export default function SubmissionForm() {
               response={chatResp}
               currCount={currentCount}
               moveBack={handleBackClick}
+              data-testid="result"
             />
           ) : isLoading && isGamePlaying ? (
             <SnakeGame />
