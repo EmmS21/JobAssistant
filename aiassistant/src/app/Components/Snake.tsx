@@ -156,28 +156,25 @@ const SnakeGame = () => {
   }, []);
 
   useEffect(() => {
-    const handleKeyPress = (e: {
-      keyCode: any;
-      preventDefault: () => void;
-    }) => {
-      switch (e.keyCode) {
-        case 37:
+    const handleKeyPress = (e: KeyboardEvent) => {
+      switch (e.key) {
+        case "ArrowLeft":
           if (direction !== "RIGHT") setDirection("LEFT");
           e.preventDefault();
           break;
-        case 38:
+        case "ArrowUp":
           if (direction !== "DOWN") setDirection("UP");
           e.preventDefault();
           break;
-        case 39:
+        case "ArrowRight":
           if (direction !== "LEFT") setDirection("RIGHT");
           e.preventDefault();
           break;
-        case 40:
+        case "ArrowDown":
           if (direction !== "UP") setDirection("DOWN");
           e.preventDefault();
           break;
-        case 13:
+        case "Enter":
           resetGame();
           break;
         default:
