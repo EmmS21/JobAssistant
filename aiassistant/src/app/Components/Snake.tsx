@@ -14,19 +14,18 @@ const SnakeGame = () => {
   const [bomb, setBomb] = useState<{ x: number; y: number } | null>(null);
   const [animation, setAnimation] = useState("colorChange");
   const [showModal, setShowModal] = useState(true);
-  const [horizontalCells, setHorizontalCells] = useState(0);
-  const [verticalCells, setVerticalCells] = useState(0);
+  const [horizontalCells, setHorizontalCells] = useState(
+    Math.floor((window.innerWidth - 20) / cellSize)
+  );
+  const [verticalCells, setVerticalCells] = useState(
+    Math.floor((window.innerHeight - 20) / cellSize)
+  );
 
   type SnakeSegment = {
     x: number;
     y: number;
     letter: string;
   };
-
-  useEffect(() => {
-    setHorizontalCells(Math.floor((window.innerWidth - 20) / cellSize));
-    setVerticalCells(Math.floor((window.innerHeight - 20) / cellSize));
-  });
 
   const generateNewDotPosition = () => {
     let newDotPosition = {
