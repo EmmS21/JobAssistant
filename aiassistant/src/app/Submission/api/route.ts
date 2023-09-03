@@ -89,7 +89,7 @@ export async function POST(request: Request) {
     await redis.set(`rateLimit:${ip}`, `${currentTimestamp}:${currentCount}`);
     await redis.set(`lastSubmission:${submissionId}`, `${currentTimestamp}`);
 
-    if (currentCount > 10) {
+    if (currentCount > 30) {
       return NextResponse.json(
         { error: ERROR_REQUEST_LIMIT_EXCEEDED },
         { status: STATUS_REQUEST_LIMIT_EXCEEDED }
