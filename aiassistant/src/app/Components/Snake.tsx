@@ -3,8 +3,6 @@ import React, { useState, useEffect } from "react";
 import Modal from "./Modal";
 
 const cellSize = 40;
-const horizontalCells = Math.floor((window.innerWidth - 20) / cellSize);
-const verticalCells = Math.floor((window.innerHeight - 20) / cellSize);
 
 const SnakeGame = () => {
   const [snake, setSnake] = useState([{ x: 2, y: 2, letter: "" }]);
@@ -16,6 +14,19 @@ const SnakeGame = () => {
   const [bomb, setBomb] = useState<{ x: number; y: number } | null>(null);
   const [animation, setAnimation] = useState("colorChange");
   const [showModal, setShowModal] = useState(true);
+  const [horizontalCells, setHorizontalCells] = useState(0);
+  const [verticalCells, setVerticalCells] = useState(0);
+
+  type SnakeSegment = {
+    x: number;
+    y: number;
+    letter: string;
+  };
+
+  useEffect(() => {
+    setHorizontalCells(Math.floor((window.innerWidth - 20) / cellSize));
+    setVerticalCells(Math.floor((window.innerHeight - 20) / cellSize));
+  });
 
   const generateNewDotPosition = () => {
     let newDotPosition = {
@@ -25,7 +36,7 @@ const SnakeGame = () => {
 
     while (
       snake.some(
-        (segment) =>
+        (segment: SnakeSegment) =>
           segment.x === newDotPosition.x && segment.y === newDotPosition.y
       )
     ) {
@@ -46,7 +57,7 @@ const SnakeGame = () => {
 
     while (
       snake.some(
-        (segment) =>
+        (segment: SnakeSegment) =>
           segment.x === newBombPosition.x && segment.y === newBombPosition.y
       ) ||
       (dot.x === newBombPosition.x && dot.y === newBombPosition.y)
@@ -109,7 +120,7 @@ const SnakeGame = () => {
       if (Math.random() < 0.8) setBomb(generateNewBombPosition());
       setSnake([...snake, { x: 0, y: 0, letter: "" }]);
       setScore(score + 1);
-      setSpeed((prevSpeed) => Math.max(prevSpeed - 50, 50));
+      setSpeed((prevSpeed: number) => Math.max(prevSpeed - 50, 50));
     }
     checkCollisionWithBomb();
   };

@@ -1,5 +1,8 @@
 {
   "scripts": {
     "heroku-postbuild": "cd 'aiassistant' && npm install && npm run build"
+  },
+  "devDependencies": {
+    "@types/react": "^18.2.21"
   }
 }
