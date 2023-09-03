@@ -156,7 +156,10 @@ const SnakeGame = () => {
   }, []);
 
   useEffect(() => {
-    const handleKeyPress = (e) => {
+    const handleKeyPress = (e: {
+      keyCode: any;
+      preventDefault: () => void;
+    }) => {
       switch (e.keyCode) {
         case 37:
           if (direction !== "RIGHT") setDirection("LEFT");
